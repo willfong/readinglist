@@ -1,0 +1,89 @@
+<% include ../partials/header.ejs %>
+<link href="/stylesheets/index.css" rel="stylesheet">
+
+<main role="main" class="container">
+  <h1 class="mt-5">ReadingList.xyz</h1>
+  <div class="accordion" id="accordionExample">
+
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Add A New Book!
+          </button>
+        </h5>
+      </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <form id="formAddNewBook" class="form-inline" action="/app/add" method="post">
+            <label class="sr-only" for="inlineFormInputName2">Title</label>
+            <input type="text" class="form-control input mb-2 mr-sm-2" id="inlineFormInputName2" name="title" placeholder="e.g. The Lord of the Rings">
+            <button type="submit" class="btn btn-outline-primary mb-2">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Started
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+              <% started.forEach(function(b) { %>
+              <li class="list-group-item"><%= b.title %> <a class="btn btn-outline-warning" href="/app/<%= b.id %>/completed" role="button">Done!</a></li>
+              <% }); %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Queue
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <% listed.forEach(function(b) { %>
+                <li class="list-group-item"><%= b.title %> <a class="btn btn-outline-warning" href="/app/<%= b.id %>/completed" role="button">Done!</a></li>
+                <% }); %>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Completed
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <% completed.forEach(function(b) { %>
+                <li class="list-group-item"><%= b.title %> <a class="btn btn-outline-warning" href="/app/<%= b.id %>/completed" role="button">Done!</a></li>
+                <% }); %>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<% include ../partials/scripts.ejs %>
+<script src="/app.js"></script>
+
+<% include ../partials/footer.ejs %>
