@@ -40,10 +40,21 @@ router.post('/app/add', secured(), async (req, res, next) => {
   }
 });
 
-router.get('/app/:todoId/completed', secured(), async (req, res, next) => {
+router.post('/app/changeBookState', secured(), async (req, res, next) => {
+  const bookId = req.body.bookId;
+  const newState = req.body.state;
+  // TODO: Need to find out why it still tries to run the query
+  const valid_states = ['listed', 'started', 'completed', 'abandoned', 'delete']
+  if (valid_states.indexOf(newState) < 0) {
+    res.send("Error: Not a valid reading state");
+  }
   try {
     const client = await res.locals.dbPool.connect();
-    await client.query('UPDATE todos SET completed = NOW() WHERE id = $1 AND userid = $2', [req.params.todoId, res.locals.user.id]);
+    if (newState == 'delete') {
+      await client.query('DELETE FROM books WHERE id = $1 AND userid = $2', [bookId, res.locals.user.id]);
+    } else {
+      await client.query('UPDATE books SET state = $1, '+newState+' = NOW() WHERE id = $2 AND userid = $3', [newState, bookId, res.locals.user.id]);
+    }
     res.redirect('/app');
   } catch (err) {
     console.error(err);

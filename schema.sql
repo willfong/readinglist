@@ -7,7 +7,9 @@ CREATE TABLE IF NOT EXISTS books (
   listed TIMESTAMPTZ DEFAULT NOW(),
   started TIMESTAMPTZ,
   completed TIMESTAMPTZ,
-  title VARCHAR(100)
+  title VARCHAR(100),
+  rating SMALLINT,
+  review TEXT
 );
 
 CREATE INDEX idx_userid_state ON books (userid, state);

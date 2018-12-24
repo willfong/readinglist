@@ -36,7 +36,21 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
               <% started.forEach(function(b) { %>
-              <li class="list-group-item"><%= b.title %> <a class="btn btn-outline-warning" href="/app/<%= b.id %>/completed" role="button">Done!</a></li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <%= b.title %>
+                <form action="/app/changeBookState" method="POST">
+                  <input type="hidden" name="bookId" value="<%= b.id %>">
+                  <div class="form-group">
+                    <select class="form-control changeBookState" name="state">
+                      <option value="listed">Listed</option>
+                      <option value="started" selected>Started</option>
+                      <option value="completed">Completed</option>
+                      <option value="abandoned">Abandoned</option>
+                      <option value="delete">Delete Book</option>
+                    </select>
+                  </div>
+                </form> 
+              </li>
               <% }); %>
           </ul>
         </div>
@@ -47,7 +61,7 @@
       <div class="card-header" id="headingThree">
         <h5 class="mb-0">
           <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Queue
+            Queued Up
           </button>
         </h5>
       </div>
@@ -55,7 +69,21 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <% listed.forEach(function(b) { %>
-                <li class="list-group-item"><%= b.title %> <a class="btn btn-outline-warning" href="/app/<%= b.id %>/completed" role="button">Done!</a></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= b.title %>
+                  <form action="/app/changeBookState" method="POST">
+                    <input type="hidden" name="bookId" value="<%= b.id %>">
+                    <div class="form-group">
+                      <select class="form-control changeBookState" name="state">
+                        <option value="listed" selected>Queued Up</option>
+                        <option value="started">Started</option>
+                        <option value="completed">Completed</option>
+                        <option value="abandoned">Abandoned</option>
+                        <option value="delete">Delete Book</option>
+                      </select>
+                    </div>
+                  </form> 
+                </li>
                 <% }); %>
             </ul>
         </div>
@@ -74,7 +102,21 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <% completed.forEach(function(b) { %>
-                <li class="list-group-item"><%= b.title %> <a class="btn btn-outline-warning" href="/app/<%= b.id %>/completed" role="button">Done!</a></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= b.title %>
+                  <form action="/app/changeBookState" method="POST">
+                    <input type="hidden" name="bookId" value="<%= b.id %>">
+                    <div class="form-group">
+                      <select class="form-control changeBookState" name="state">
+                        <option value="listed">Listed</option>
+                        <option value="started">Started</option>
+                        <option value="completed" selected>Completed</option>
+                        <option value="abandoned">Abandoned</option>
+                        <option value="delete">Delete Book</option>
+                      </select>
+                    </div>
+                  </form> 
+                </li>
                 <% }); %>
             </ul>
         </div>
