@@ -1,0 +1,14 @@
+<% include ../partials/header.ejs %>
+<link href="/stylesheets/index.css" rel="stylesheet">
+
+<main role="main" class="container">
+    <h1 class="mt-5">ReadingList.xyz</h1>
+    <p class="lead">Book List For: <%= userInfo.username %></p>
+    <ul class="list-group list-group-flush">
+        <% userBooks.forEach(function(b) { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center"><%= b.title %> <span><%= b.state %></span></li>
+        <% }); %>    
+    </ul>
+</main>
+
+<% include ../partials/footer.ejs %>

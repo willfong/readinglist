@@ -6,22 +6,28 @@ var secured = function () {
     return function secured (req, res, next) {
       if (req.user) { return next(); }
       req.session.returnTo = req.originalUrl;
-      res.redirect('/');
+      res.redirect('/auth/login').end();
     };
 };
 
 // TODO: Move db connection global
 router.get('/app', secured(), async (req, res, next) => {
   try {
-    var result
-    const client = await res.locals.dbPool.connect()
+    const client = await res.locals.dbPool.connect();
+
+    result = await client.query("SELECT username FROM users WHERE userid = $1", [res.locals.user.id]);
+    if (!result.rowCount) {
+      res.redirect('/user/settings').end();
+    }
+
+    var result;
     result = await client.query("SELECT * FROM books WHERE userid = $1 AND state = 'listed'", [res.locals.user.id]);
     const listed = (result) ? result.rows : null;
     result = await client.query("SELECT * FROM books WHERE userid = $1 AND state = 'started'", [res.locals.user.id]);
     const started = (result) ? result.rows : null;
     result = await client.query("SELECT * FROM books WHERE userid = $1 AND state = 'completed'", [res.locals.user.id]);
     const completed = (result) ? result.rows : null;
-    res.render('pages/app', {listed, started, completed});
+    res.render('pages/app', {listed, started, completed}).end();
     client.release();
   } catch (err) {
     console.error(err);

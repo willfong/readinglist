@@ -1,0 +1,25 @@
+<% include ../partials/header.ejs %>
+<link href="/stylesheets/index.css" rel="stylesheet">
+
+<main role="main" class="container">
+  <h1 class="mt-5">ReadingList.xyz</h1>
+  
+  <h2>Username</h2>
+  <p class="lead">Choose a username to share</p>
+  <form class="form-inline" action="/user/settings/change-username" method="post">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">https://readinglist.xyz/</span>
+            </div>
+            <input type="text" name="username" value="<%= userInfo.username %>" placeholder="Enter a username..." class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-outline-primary">Submit</button>    
+            </div>
+        </div>
+    </form>
+</main>
+
+<% include ../partials/scripts.ejs %>
+<script src="/app.js"></script>
+
+<% include ../partials/footer.ejs %>

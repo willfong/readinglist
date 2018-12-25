@@ -16,6 +16,8 @@ const dbPool = new Pool({
 var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
 var appRouter = require('./routes/app');
+var userRouter = require('./routes/user');
+
 
 const PORT = process.env.PORT || 5000
 
@@ -55,9 +57,9 @@ var sess = {
   saveUninitialized: true
 };
 
-//if (app.get('env') === 'production') {
-  sess.cookie.secure = false; // serve secure cookies, requires https
-//}
+if (process.env.DEPLOY_ENV === 'PRODUCTION') {
+  sess.cookie.secure = true;
+}
 
 
 /**
@@ -95,6 +97,7 @@ express()
   .use('/', authRouter)
   .use('/', indexRouter)
   .use('/', appRouter)
+  .use('/', userRouter)
   .use(function(req, res, next){
     // This catches anything that didn't match above
     res.status(404);
