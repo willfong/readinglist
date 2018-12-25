@@ -59,7 +59,7 @@ var sess = {
 
 if (process.env.DEPLOY_ENV === 'PRODUCTION') {
   console.log('DEPLOY_ENV IS PRODUCTION');
-  sess.cookie.secure = true;
+  sess.cookie.secure = false;
 } else {
   console.log('DEPLOY_ENV IS STAGING');
 }
