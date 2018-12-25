@@ -58,7 +58,10 @@ var sess = {
 };
 
 if (process.env.DEPLOY_ENV === 'PRODUCTION') {
+  console.log('DEPLOY_ENV IS PRODUCTION');
   sess.cookie.secure = true;
+} else {
+  console.log('DEPLOY_ENV IS STAGING');
 }
 
 
