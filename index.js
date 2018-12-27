@@ -11,6 +11,7 @@ const dbPool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
+var pgSession = require('connect-pg-simple')(session);
 
 
 var authRouter = require('./routes/auth');
@@ -51,17 +52,20 @@ passport.deserializeUser(function (user, done) {
 
 
 var sess = {
-  secret: 'THIS IS A DIFFERENT SECFET',
-  cookie: {},
+  store: new pgSession({
+    pool : dbPool,
+    tableName : 'session'
+  }),
+  saveUninitialized: false,
+  secret: 'super-secret-key-to-be-replaced',
   resave: false,
-  saveUninitialized: true
-};
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}
 
-if (process.env.DEPLOY_ENV === 'PRODUCTION') {
-  console.log('DEPLOY_ENV IS PRODUCTION');
-  sess.cookie.secure = false;
-} else {
-  console.log('DEPLOY_ENV IS STAGING');
+
+if ( process.env.DEPLOY_ENV === 'PRODUCTION') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
 }
 
 
