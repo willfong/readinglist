@@ -64,7 +64,6 @@ var sess = {
 
 
 if ( process.env.DEPLOY_ENV === 'PRODUCTION') {
-  app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
 }
 
@@ -95,6 +94,7 @@ express()
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(session(sess))
+  .set('trust proxy', 1)
   .use(passport.initialize())
   .use(passport.session())
   .set('views', path.join(__dirname, 'views'))
