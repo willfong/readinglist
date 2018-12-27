@@ -63,8 +63,9 @@ var sess = {
 }
 
 
+// TODO: Fix secure cookies
 if ( process.env.DEPLOY_ENV === 'PRODUCTION') {
-  sess.cookie.secure = true // serve secure cookies
+  sess.cookie.secure = false // serve secure cookies
 }
 
 
