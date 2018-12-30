@@ -1,6 +1,9 @@
 <footer class="footer">
   <div class="container">
     <span class="text-muted">ReadingList.xyz</span>
+    <% if (user) { %> 
+      <a href="/user/settings">Settings</a> | <a href="/auth/logout">Log out</a>
+    <% } %>
   </div>
 </footer>
 </body>
