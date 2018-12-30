@@ -15,7 +15,7 @@ router.get('/auth/callback', function (req, res, next) {
     if (err) { return next(err); }
     if (!user) { 
       console.log("Error: User variable not set by login")
-      return res.redirect('/auth/login');
+      return res.redirect('/');
     }
     req.logIn(user, function (err) {
       if (err) { return next(err); }
