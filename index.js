@@ -59,13 +59,14 @@ var sess = {
   saveUninitialized: false,
   secret: 'super-secret-key-to-be-replaced',
   resave: false,
+  proxy: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }
 
 
 // TODO: Fix secure cookies
 if ( process.env.DEPLOY_ENV === 'PRODUCTION') {
-  sess.cookie.secure = false // serve secure cookies
+  sess.cookie.secure = true // serve secure cookies
 }
 
 

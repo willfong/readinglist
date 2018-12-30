@@ -27,7 +27,7 @@ router.get('/app', secured(), async (req, res, next) => {
     const started = (result) ? result.rows : null;
     result = await client.query("SELECT * FROM books WHERE userid = $1 AND state = 'completed'", [res.locals.user.id]);
     const completed = (result) ? result.rows : null;
-    res.render('pages/app', {listed, started, completed}).end();
+    res.render('pages/app', {listed, started, completed});
     client.release();
   } catch (err) {
     console.error(err);
